@@ -26,14 +26,14 @@ f = io.StringIO()
 with redirect_stdout(f):
     get_default_cli().invoke(['vm', 'list-usage', '--location', 'East US', '--query',
                               '[?localName == \'Total Regional vCPUs\'].limit'])
-    limit = "6"
+    limit = f.getvalue()
  
 # 默认每个区域的配额都相同，因此只需查询美国东部地区的配额
 # Azure for Students订阅每个区域的vCPU总数为6，
 # 标准FSv2系列vCPUs为4，标准FS系列vCPUs为4
 # 所以创建一个Standard_F4s_v2实例（占用4个vCPUs），
 # 一个Standard_F2s实例（占用2个vCPUs）
-if '6' in limit:
+if 6 in limit:
     print("当前订阅为Azure for Students")
     size1_name = "Standard_F4s_v2"
     size1_abbreviation = "F4s_v2"
@@ -46,7 +46,7 @@ if '6' in limit:
 # 即用即付订阅每个区域的vCPU总数为10，与标准FSv2系列的vCPUs相同
 # 因此创建一个Standard_F8s_v2实例（占用8个vCPUs），
 # 一个Standard_F2s_v2实例（占用2个vCPUs）
-elif '10' in limit:
+elif 10 in limit:
     print("当前订阅为即用即付")
     size1_name = "Standard_F8s_v2"
     size1_abbreviation = "F8s_v2"
@@ -58,7 +58,7 @@ elif '10' in limit:
  
 # 免费试用订阅每个区域的vCPU总数为4，与标准FSv2系列的vCPUs相同
 # 因此创建1个Standard_F4s_v2实例（共占用4个vCPUs）
-elif '4' in limit:
+elif 4 in limit:
     print("当前订阅为免费试用，每个区域的配额仅为4 vCPUs，建议升级后再用。"
           "若升级后仍看到本消息，请等待十分钟再运行脚本。")
     selection = input("输入Y继续运行，任意键退出")
