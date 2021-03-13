@@ -26,7 +26,7 @@ f = io.StringIO()
 with redirect_stdout(f):
     get_default_cli().invoke(['vm', 'list-usage', '--location', 'East US', '--query',
                               '[?localName == \'Total Regional vCPUs\'].limit'])
-    limit = f.getvalue()
+    limit = 6
  
 # 默认每个区域的配额都相同，因此只需查询美国东部地区的配额
 # Azure for Students订阅每个区域的vCPU总数为6，
