@@ -6,14 +6,22 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from pandas import DataFrame as df
 import random
-proxies = {'http': '127.0.0.1:9050',
-            'https': '127.0.0.1:9050',}
+from stem import Signal
+from stem.control import Controller
+
+proxies = {'http': 'socks5://localhost:9050',
+            'https': 'socks5://localhost:9050',}
 ua = UserAgent()
 skus = ['78e66a63-337a-4a9a-8959-41c6654dfb56',
         'e82ae690-a2d5-4d76-8d30-7c6e01e6022e',
         '94763226-9b3c-4e75-a931-5c89701abe66',
         '314c4481-f395-4525-be8b-2ec4bb1e9d91']
-
+# 通过Tor切换ip
+def switchIP():
+  with Controller.from_port(port = 9051) as controller:
+    controller.authenticate()
+    controller.signal(Signal.NEWNYM)
+    
 def data_need(sku,domain):
     url = 'https://signup.microsoft.com/signup?skug=Education&sku=%(sku)s'%{"sku":sku}
     headers = {
@@ -52,11 +60,7 @@ def get_domain_can_register(domain, T_list):
 
 
 def openfile(filename):
-    file = open(filename,'r')
-    a = file.read()[1:-1].replace("'", "").replace(" ", "")
-    list1 = a.split(',')
-    file.close()
-    return list1
+    return open(filename,encoding='utf-8').read().split('\n')
 
 filename = 'co.txt'
 domains = openfile(filename)
@@ -72,6 +76,7 @@ for domain in domains:
     for sku in skus:
         url,headers,datas = data_need(sku,domain)
         while 1:
+            switchIP()
             req = request_post(url, headers, proxies, datas)
             soup = BeautifulSoup(req.text, 'html.parser')
             h2 = str(re.compile(r'<[^>]+>', re.S).sub('', str(soup.select('h2'))))
