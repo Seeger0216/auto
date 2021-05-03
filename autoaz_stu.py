@@ -95,17 +95,15 @@ for location in locations:
              '--size', f'{size1_name}', '--location', f'{location}', '--admin-username',
              'azureuser', '--admin-password', '6uPF5Cofvyjcew9', '--custom-data',
              'cloud-init.txt', "--no-wait"])
-    if account_type != 2:
-        count = 0
-        for a in range(0, size2_count):
-            count += 1
-            print("正在 " + str(location) + " 区域创建 " + str(size2_name)+" 实例")
-            get_default_cli().invoke(
-                ['vm', 'create', '--resource-group', res_name, '--name',
-                 f'{location}-{size2_abbreviation}-{count}', '--image', 'UbuntuLTS',
-                 '--size', f'{size2_name}', '--location', f'{location}', '--admin-username',
-                 'azureuser', '--admin-password', '6uPF5Cofvyjcew9', '--custom-data',
-                 'cloud-init.txt', "--no-wait"])
+    for a in range(0, size2_count):
+         count += 1
+         print("正在 " + str(location) + " 区域创建 " + str(size2_name)+" 实例")
+         get_default_cli().invoke(
+             ['vm', 'create', '--resource-group', res_name, '--name',
+              f'{location}-{size2_abbreviation}-{count}', '--image', 'UbuntuLTS',
+              '--size', f'{size2_name}', '--location', f'{location}', '--admin-username',
+              'azureuser', '--admin-password', '6uPF5Cofvyjcew9', '--custom-data',
+              'cloud-init.txt', "--no-wait"])
 
 # 5.信息汇总
 # 获取所有vm的名字
