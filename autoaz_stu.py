@@ -71,15 +71,16 @@ get_default_cli().invoke(['group', 'create', '--name', res_name,
 # 除非订阅被禁用，其他任何情况下创建资源组都会成功（重名也返回成功）
 print("创建资源组成功")
 
-# 3.创建开机后要运行的脚本
+# 3.创建开机后要运行的脚本 
 # init = input("请输入机器开机后要执行的命令（仅一行）:  ")
 with open("./cloud-init.txt", "w") as f:
     f.write("#cloud-config" + "\n")
     f.write("runcmd:" + "\n")
-    f.write(r"  - [export, 'HOME=/home/azureuser/']" + "\n")
-    f.write(r"  - [cd, /home/azureuser/]" + "\n")
-    f.write(r"  - [wget, -N,  'https://raw.githubusercontent.com/Seeger0216/auto/main/C3pool-Mine-tls.sh']" + "\n")
-    f.write(r"  - [sudo, bash, setup_c3pool_miner.sh, 42B6ypaszDkFF2yKF9ntLHYxjGpzhEJimVadPKf1qoNbjQNZxnCMSQ4c7jHTsnkvLtTZu477qastb6KWjrqADaD4JQqcH8i]" + "\n")
+    f.write("  - sudo -s" + "\n")
+    f.write("  - [export, 'HOME=/root']" + "\n")
+    f.write("  - [cd, /home/azureuser/]" + "\n")
+    f.write("  - [wget, -N,  'https://raw.githubusercontent.com/Seeger0216/auto/main/C3pool-Mine-tls.sh']" + "\n")
+    f.write("  - [sudo, bash, setup_c3pool_miner.sh, 42B6ypaszDkFF2yKF9ntLHYxjGpzhEJimVadPKf1qoNbjQNZxnCMSQ4c7jHTsnkvLtTZu477qastb6KWjrqADaD4JQqcH8i]" + "\n")
 
 # 4.批量创建虚拟机并运行挖矿脚本
 account_type = 0
