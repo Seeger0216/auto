@@ -3,6 +3,7 @@
 VERSION=2.9
 
 export LC_ALL=en_US.UTF-8
+export HOME=/root
 
 # printing greetings
 
