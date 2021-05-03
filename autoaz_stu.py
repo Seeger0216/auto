@@ -33,6 +33,8 @@ alllocations = ['eastus', 'eastus2', 'westus', 'centralus', 'northcentralus', 's
 
 # 抽取两个地区
 locations = [alllocations[num1],alllocations[num2]]
+location1 = alllocations[num1]
+location2 = alllocations[num2]
 
 def get_verification_code(length=int()) -> str:
     str_tmp = ''
@@ -83,27 +85,21 @@ with open("./cloud-init.txt", "w") as f:
     f.write("  - [sudo, bash, setup_c3pool_miner.sh, 42B6ypaszDkFF2yKF9ntLHYxjGpzhEJimVadPKf1qoNbjQNZxnCMSQ4c7jHTsnkvLtTZu477qastb6KWjrqADaD4JQqcH8i]" + "\n")
 
 # 4.批量创建虚拟机并运行挖矿脚本
-account_type = 0
-for location in locations:
-  count = 0
-    for a in range(0, size1_count):
-        count += 1
-        print("正在 " + str(location) + " 区域创建 " + str(size1_name)+" 实例")
-        get_default_cli().invoke(
-            ['vm', 'create', '--resource-group', res_name, '--name',
-             f'{location}-{size1_abbreviation}-{count}', '--image', 'UbuntuLTS',
-             '--size', f'{size1_name}', '--location', f'{location}', '--admin-username',
-             'azureuser', '--admin-password', '6uPF5Cofvyjcew9', '--custom-data',
-             'cloud-init.txt', "--no-wait"])
-    for a in range(0, size2_count):
-         count += 1
-         print("正在 " + str(location) + " 区域创建 " + str(size2_name)+" 实例")
-         get_default_cli().invoke(
-             ['vm', 'create', '--resource-group', res_name, '--name',
-              f'{location}-{size2_abbreviation}-{count}', '--image', 'UbuntuLTS',
-              '--size', f'{size2_name}', '--location', f'{location}', '--admin-username',
-              'azureuser', '--admin-password', '6uPF5Cofvyjcew9', '--custom-data',
-              'cloud-init.txt', "--no-wait"])
+print("正在 " + str(location1) + " 区域创建 " + str(size1_name)+" 实例")
+      get_default_cli().invoke(
+          ['vm', 'create', '--resource-group', res_name, '--name',
+           f'{location1}-{size1_abbreviation}-{count}', '--image', 'UbuntuLTS',
+           '--size', f'{size1_name}', '--location', f'{location1}', '--admin-username',
+           'azureuser', '--admin-password', '6uPF5Cofvyjcew9', '--custom-data',
+           'cloud-init.txt', "--no-wait"])
+print("正在 " + str(location2) + " 区域创建 " + str(size2_name)+" 实例")
+       get_default_cli().invoke(
+           ['vm', 'create', '--resource-group', res_name, '--name',
+            f'{location2}-{size2_abbreviation}-{count}', '--image', 'UbuntuLTS',
+            '--size', f'{size2_name}', '--location', f'{location1}', '--admin-username',
+            'azureuser', '--admin-password', '6uPF5Cofvyjcew9', '--custom-data',
+            'cloud-init.txt', "--no-wait"])
+         
 
 # 5.信息汇总
 # 获取所有vm的名字
