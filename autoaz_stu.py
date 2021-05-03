@@ -84,6 +84,7 @@ with open("./cloud-init.txt", "w") as f:
 # 4.批量创建虚拟机并运行挖矿脚本
 account_type = 0
 for location in locations:
+  count = 0
     for a in range(0, size1_count):
         count += 1
         print("正在 " + str(location) + " 区域创建 " + str(size1_name)+" 实例")
