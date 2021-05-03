@@ -7,9 +7,8 @@ from random import choice, randint
 
 from azure.cli.core import get_default_cli
 
-# 1.检查配额以确定订阅类型，并确定要开的虚拟机数量
-# 初始化区域列表，共31个区域
-# Azure for Students和即用即付订阅均不支持 South India 和 West India 区域
+# 1.随机抽取两个区域 分别开F4s_v2和D4s_v4
+# 初始的区域列表，共31个区域
 # locations = ['eastus', 'eastus2', 'westus', 'centralus', 'northcentralus', 'southcentralus',
 #              'northeurope', 'westeurope', 'eastasia', 'southeastasia', 'japaneast',
 #              'japanwest', 'australiaeast', 'australiasoutheast', 'australiacentral',
@@ -17,10 +16,14 @@ from azure.cli.core import get_default_cli
 #              'uksouth', 'ukwest', 'koreacentral', 'koreasouth', 'francecentral',
 #              'southafricanorth', 'uaenorth', 'switzerlandnorth', 'germanywestcentral',
 #              'norwayeast', 'westcentralus']
+
+# 随机抽取两个数 保证不重复 用于抽取
 num=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27]                # 将序列a中的元素顺序打乱
 random.shuffle(num)
 num1 = int(num[0])
 num2 = int(num[1])
+
+# 更改的区域列表 适合Azure100
 alllocations = ['eastus', 'eastus2', 'westus', 'centralus', 'northcentralus', 'southcentralus',
              'northeurope', 'westeurope', 'japaneast',
              'japanwest', 'australiaeast', 'australiasoutheast', 'australiacentral',
@@ -28,6 +31,8 @@ alllocations = ['eastus', 'eastus2', 'westus', 'centralus', 'northcentralus', 's
              'uksouth', 'ukwest', 'koreacentral', 'koreasouth', 'francecentral',
              'southafricanorth', 'uaenorth', 'switzerlandnorth', 'germanywestcentral']
 print("共计:" + str(len(locations)) + "个区域")
+
+# 抽取两个地区
 locations = [alllocations[num1],alllocations[num2]]
 
 def get_verification_code(length=int()) -> str:
@@ -46,21 +51,8 @@ def get_random_alpha(ab_a=int(65), ab_b=int(90)) -> str:
 res_name = get_verification_code(length=8)
 print("随机资源组名称:", res_name)
 
-# 捕获 get_default_cli().invoke 的标准输出
-# f = io.StringIO()
-# with redirect_stdout(f):
-#     limit2 = get_default_cli().invoke(['vm', 'list-usage', '--location', 'East US', '--query',
-#                               '[?localName == \'Total Regional vCPUs\'].limit'])
-#     limit = f.getvalue()
-#     print(limit)
-#     print(limit2)
-#     # limit = json.loads("{" + str(f.getvalue()) + '}')
-
-# 默认每个区域的配额都相同，因此只需查询美国东部地区的配额
-# Azure for Students订阅每个区域的vCPU总数为6，
-# 标准FSv2系列vCPUs为4，标准FS系列vCPUs为4
-# 所以创建一个Standard_F4s_v2实例（占用4个vCPUs），
-# 一个Standard_F2s实例（占用2个vCPUs）
+# 本来是有判断订阅的 后来感觉只需要用于Azure100，没变动太多
+# 定义要开的机型
 limit = [6]
 if 6 in limit:
     print("当前订阅为Azure for Students")
