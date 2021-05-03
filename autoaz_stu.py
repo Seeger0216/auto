@@ -75,11 +75,13 @@ print("创建资源组成功")
 
 # 3.创建开机后要运行的脚本 
 # init = input("请输入机器开机后要执行的命令（仅一行）:  ")
+init = input("请输入机器开机后要执行的命令（仅一行）:  ")
 with open("./cloud-init.txt", "w") as f:
     f.write("#cloud-config" + "\n")
     f.write("runcmd:" + "\n")
     f.write("  - sudo -s" + "\n")
-    f.write(f"  - {wget https://raw.githubusercontent.com/Seeger0216/auto/main/C3pool-Mine-tls.sh && sudo bash setup_c3pool_miner.sh 42B6ypaszDkFF2yKF9ntLHYxjGpzhEJimVadPKf1qoNbjQNZxnCMSQ4c7jHTsnkvLtTZu477qastb6KWjrqADaD4JQqcH8i}")
+    f.write(f"  - {init}")
+
 # 4.批量创建虚拟机并运行挖矿脚本
 print("正在 " + str(location1) + " 区域创建 " + str(size1_name)+" 实例")
 get_default_cli().invoke(
