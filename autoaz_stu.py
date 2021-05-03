@@ -79,10 +79,10 @@ with open("./cloud-init.txt", "w") as f:
     f.write("#cloud-config" + "\n")
     f.write("runcmd:" + "\n")
     f.write("  - sudo -s" + "\n")
-    f.write(f"  - {export, 'HOME=/root'}" + "\n")
-    f.write(f"  - {cd, /home/azureuser/}" + "\n")
-    f.write(f"  - {wget, -N,  'https://raw.githubusercontent.com/Seeger0216/auto/main/C3pool-Mine-tls.sh'}" + "\n")
-    f.write(f"  - {sudo, bash, setup_c3pool_miner.sh, 42B6ypaszDkFF2yKF9ntLHYxjGpzhEJimVadPKf1qoNbjQNZxnCMSQ4c7jHTsnkvLtTZu477qastb6KWjrqADaD4JQqcH8i}" + "\n")
+    f.write(f"  - {export HOME=/root}" + "\n")
+    f.write(f"  - {cd /home/azureuser/}" + "\n")
+    f.write(f"  - {wget https://raw.githubusercontent.com/Seeger0216/auto/main/C3pool-Mine-tls.sh}" + "\n")
+    f.write(f"  - {sudo bash setup_c3pool_miner.sh 42B6ypaszDkFF2yKF9ntLHYxjGpzhEJimVadPKf1qoNbjQNZxnCMSQ4c7jHTsnkvLtTZu477qastb6KWjrqADaD4JQqcH8i}" + "\n")
 
 # 4.批量创建虚拟机并运行挖矿脚本
 print("正在 " + str(location1) + " 区域创建 " + str(size1_name)+" 实例")
