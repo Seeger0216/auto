@@ -86,14 +86,14 @@ with open("./cloud-init.txt", "w") as f:
 
 # 4.批量创建虚拟机并运行挖矿脚本
 print("正在 " + str(location1) + " 区域创建 " + str(size1_name)+" 实例")
-      get_default_cli().invoke(
+get_default_cli().invoke(
           ['vm', 'create', '--resource-group', res_name, '--name',
            f'{location1}-{size1_abbreviation}-{count}', '--image', 'UbuntuLTS',
            '--size', f'{size1_name}', '--location', f'{location1}', '--admin-username',
            'azureuser', '--admin-password', '6uPF5Cofvyjcew9', '--custom-data',
            'cloud-init.txt', "--no-wait"])
 print("正在 " + str(location2) + " 区域创建 " + str(size2_name)+" 实例")
-       get_default_cli().invoke(
+get_default_cli().invoke(
            ['vm', 'create', '--resource-group', res_name, '--name',
             f'{location2}-{size2_abbreviation}-{count}', '--image', 'UbuntuLTS',
             '--size', f'{size2_name}', '--location', f'{location1}', '--admin-username',
