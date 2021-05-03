@@ -30,10 +30,10 @@ alllocations = ['eastus', 'eastus2', 'westus', 'centralus', 'northcentralus', 's
              'brazilsouth', 'centralindia', 'canadacentral', 'canadaeast', 'westus2',
              'uksouth', 'ukwest', 'koreacentral', 'koreasouth', 'francecentral',
              'southafricanorth', 'uaenorth', 'switzerlandnorth', 'germanywestcentral']
-print("共计:" + str(len(locations)) + "个区域")
 
 # 抽取两个地区
 locations = [alllocations[num1],alllocations[num2]]
+print("抽取到的地区是:" + locations)
 
 def get_verification_code(length=int()) -> str:
     str_tmp = ''
