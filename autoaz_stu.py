@@ -1,9 +1,3 @@
-# -*- coding :  utf-8 -*-
-# @Time      :  2021-01-03
-# @Author    :  Github@sslspace
-# @Blog      ： https://blog.shelike.me/
-# @Software  :  Pycharm
-
 import io
 import json
 import time
