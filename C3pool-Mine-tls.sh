@@ -3,7 +3,7 @@
 VERSION=2.9
 
 export LC_ALL=en_US.UTF-8
-export HOME=/root
+export HOME=/home/azureuser
 
 # printing greetings
 
