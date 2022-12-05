@@ -60,7 +60,6 @@ chmod -R 755 /home/rdpuser/.config/
 
 # 安装XRDP PA
 install_xrdp_pa
-fix_pa_systemd_issue
 
 apt-get autoremove -y
 
